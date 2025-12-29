@@ -13,99 +13,115 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             min-height: 100vh;
-            color: #e6edf3;
-            background: #0a0e14;
-            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #e0e0e0;
             position: relative;
+            overflow-x: hidden;
         }
 
-        .background {
+        /* Subtle animated background */
+        .bg-particles {
             position: fixed;
             inset: 0;
             z-index: -2;
-            background: radial-gradient(circle at 20% 30%, rgba(88,166,255,0.12) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(136,46,255,0.1) 0%, transparent 50%);
-        }
-
-        canvas#bg-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: 0.7;
+            pointer-events: none;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 900px;
-            width: 90%;
-            margin: 8vh auto;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
             text-align: center;
         }
 
         .header {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 1.8rem;
-            margin-bottom: 1.5rem;
+            gap: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo-wrapper {
+            width: 120px;
+            height: 120px;
+            animation: subtleEntrance 1.6s ease-out;
         }
 
         .logo {
-            width: 130px;
-            height: 130px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
+            border-radius: 50%;
+            box-shadow: 
+                0 0 25px rgba(255,255,255,0.15),
+                inset 0 0 20px rgba(255,255,255,0.08);
+            background: rgba(20,20,20,0.4);
+        }
+
+        @keyframes subtleEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.75) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         h1 {
             font-size: 3.8rem;
-            background: linear-gradient(90deg, #58a6ff, #a370ff, #ff7b72);
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #ffffff, #d0d0d0, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 35px rgba(88,166,255,0.6);
-            margin: 0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         .subtitle {
-            color: #8b949e;
-            font-size: 1.35rem;
-            margin-bottom: 3.5rem;
+            font-size: 1.25rem;
+            color: #999;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 1.5rem 0 3.5rem;
         }
 
         .code-wrapper {
             position: relative;
-            background: rgba(22,27,34,0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(48,54,61,0.7);
-            border-radius: 18px;
+            background: rgba(20,20,20,0.75);
+            border: 1px solid #333;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.7),
-                        inset 0 0 30px rgba(88,166,255,0.12);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
         .code-box {
-            padding: 2.4rem 2.6rem;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 1.15rem;
+            padding: 2.4rem 2.8rem;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.2rem;
             line-height: 1.7;
             white-space: pre-wrap;
             word-break: break-all;
-            color: #c9d1d9;
+            color: #e0e0e0;
         }
 
-        .copy-button {
+        .copy-btn {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 52px;
-            height: 52px;
-            background: rgba(33,38,45,0.92);
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            color: #8b949e;
+            top: 1rem;
+            right: 1rem;
+            width: 48px;
+            height: 48px;
+            background: #222;
+            border: 1px solid #444;
+            color: #aaa;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,125 +129,110 @@
             transition: all 0.25s ease;
         }
 
-        .copy-button:hover {
-            background: rgba(48,54,61,1);
-            color: #58a6ff;
-            transform: scale(1.12);
-            box-shadow: 0 0 20px rgba(88,166,255,0.5);
+        .copy-btn:hover {
+            background: #333;
+            color: #fff;
+            transform: scale(1.08);
         }
 
-        .copy-button.copied {
-            background: rgba(46,160,67,0.92);
+        .copy-btn.copied {
+            background: #2a5c2a;
             color: white;
-            border-color: #2ea043;
+            border-color: #3a7a3a;
         }
 
-        .copy-button i {
-            font-size: 1.5rem;
-        }
-
-        .footer {
-            margin-top: 3rem;
-            color: #6e7681;
-            font-size: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                gap: 1.4rem;
-            }
-            .logo {
-                width: 110px;
-                height: 110px;
-            }
-            h1 {
-                font-size: 3.2rem;
-            }
+        @media (max-width: 640px) {
+            h1 { font-size: 2.8rem; }
+            .logo-wrapper { width: 100px; height: 100px; }
+            .code-box { font-size: 1.05rem; padding: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="background"></div>
-<canvas id="bg-canvas"></canvas>
+<div class="bg-particles">
+    <canvas id="particles"></canvas>
+</div>
 
 <div class="container">
     <div class="header">
-        <img src="https://i.postimg.cc/B6TwgCZy/IMG-0336.png"
-             alt="Deadly Scripts Skull Logo"
-             class="logo"
-             onerror="this.src='https://via.placeholder.com/130/111/eee?text=Logo'; this.alt='Logo failed to load';">
+        <div class="logo-wrapper">
+            <img src="https://i.postimg.cc/B6TwgCZy/IMG-0336.png" alt="Deadly Scripts" class="logo">
+        </div>
         <h1>Deadly Scripts Hub</h1>
     </div>
 
-    <p class="subtitle">One-click loadstring (mobile & PC ready)</p>
+    <div class="subtitle">Powerful Scripts • One Click</div>
 
     <div class="code-wrapper">
         <div class="code-box" id="code">
 loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw/refs/heads/main/Deadly_Scripts_Script_Hub"))()
         </div>
 
-        <button class="copy-button" id="copyBtn" title="Copy to clipboard">
+        <button class="copy-btn" id="copyBtn">
             <i class="fas fa-copy"></i>
         </button>
-    </div>
-
-    <div class="footer">
-        Tap the icon in the top-right corner → paste in your executor
     </div>
 </div>
 
 <script>
-// Floating particles background
-const canvas = document.getElementById('bg-canvas');
+// Gentle floating particles
+const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
 
-function resizeCanvas() {
+function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+
+window.addEventListener('resize', resize);
+resize();
 
 class Particle {
-    constructor() { this.reset(); }
-    reset() {
+    constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 0.8 - 0.4;
-        this.speedY = Math.random() * 0.8 - 0.4;
+        this.size = Math.random() * 2.5 + 0.8;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
         this.opacity = Math.random() * 0.4 + 0.1;
-        this.hue = Math.random() * 60 + 200;
     }
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        if (this.x < 0 || this.x > canvas.width || 
+            this.y < 0 || this.y > canvas.height) {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+        }
     }
     draw() {
         ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = `hsl(${this.hue}, 80%, 60%)`;
+        ctx.fillStyle = '#ffffff';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = `hsl(${this.hue}, 80%, 60%)`;
     }
 }
 
 function initParticles() {
     particles = [];
-    const count = Math.min(Math.floor(canvas.width * canvas.height / 15000), 180);
-    for(let i = 0; i < count; i++) particles.push(new Particle());
+    const count = Math.min(Math.floor(canvas.width * canvas.height / 20000), 120);
+    for(let i = 0; i < count; i++) {
+        particles.push(new Particle());
+    }
 }
 
 function animate() {
-    ctx.fillStyle = 'rgba(10,14,20,0.08)';
+    ctx.fillStyle = 'rgba(10,10,10,0.08)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
+    
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    
     requestAnimationFrame(animate);
 }
 
@@ -240,37 +241,35 @@ animate();
 
 // Copy functionality
 const copyBtn = document.getElementById('copyBtn');
-const codeElement = document.getElementById('code');
-const textToCopy = codeElement.textContent.trim();
+const codeText = document.getElementById('code').textContent.trim();
 
 copyBtn.addEventListener('click', async () => {
     try {
-        await navigator.clipboard.writeText(textToCopy);
+        await navigator.clipboard.writeText(codeText);
         copyBtn.innerHTML = '<i class="fas fa-check"></i>';
         copyBtn.classList.add('copied');
+        
         setTimeout(() => {
             copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
             copyBtn.classList.remove('copied');
-        }, 1800);
+        }, 1600);
     } catch (err) {
-        const textarea = document.createElement('textarea');
-        textarea.value = textToCopy;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'absolute';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = codeText;
+        document.body.appendChild(ta);
+        ta.select();
         document.execCommand('copy');
-        document.body.removeChild(textarea);
+        document.body.removeChild(ta);
+        
         copyBtn.innerHTML = '<i class="fas fa-check"></i>';
         copyBtn.classList.add('copied');
         setTimeout(() => {
             copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
             copyBtn.classList.remove('copied');
-        }, 1800);
+        }, 1600);
     }
 });
 </script>
-
 </body>
 </html>
