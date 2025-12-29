@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Deadly Scripts Hub - Loadstring</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacOSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 2.5rem 1.5rem;
+        }
+
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #8b949e;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .code-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1.4rem;
+            position: relative;
+            font-family: 'Consolas', 'Monaco', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-size: 1.05rem;
+            line-height: 1.45;
+            margin-bottom: 1.5rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #2ea043;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.97);
+        }
+
+        .copied {
+            background: #2ea043 !important;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            color: #8b949e;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Deadly Scripts Hub</h1>
+    <p class="subtitle">Loadstring (mobile & PC friendly copy)</p>
+
+    <div class="code-box" id="code">
+loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw/refs/heads/main/Deadly_Scripts_Script_Hub"))()
+    </div>
+
+    <button class="copy-btn" id="copyButton">Copy</button>
+</div>
+
+<footer class="footer">
+    Just tap/click the button → paste in your executor
+</footer>
+
+<script>
+    const codeElement = document.getElementById('code');
+    const copyBtn = document.getElementById('copyButton');
+    const textToCopy = codeElement.textContent.trim();
+
+    copyBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            
+            // Visual feedback
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+                copyBtn.classList.remove('copied');
+            }, 2000);
+            
+        } catch (err) {
+            // Fallback for older browsers
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+        }
+    });
+</script>
+
+</body>
+</html>
