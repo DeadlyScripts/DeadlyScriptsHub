@@ -14,6 +14,11 @@
             color: #e0e0e0;
             position: relative;
             overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+        body.light {
+            background: #f0f0f0;
+            color: #1a1a1a;
         }
         .bg-particles {
             position: fixed;
@@ -22,17 +27,117 @@
             pointer-events: none;
         }
         canvas { display: block; }
+
+        /* Floating rounded navbar */
+        .navbar {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            height: 70px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #222;
+            border-radius: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.2rem;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            transition: background 0.4s ease;
+        }
+        body.light .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid #ddd;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        body.light .nav-logo { color: #000; }
+        .nav-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #aaa;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: center;
+        }
+        body.light .nav-links a { color: #555; }
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        body.light .nav-links a:hover {
+            color: #000;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            font-weight: 600;
+        }
+        body.light .nav-links a.active {
+            color: #000;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle {
+            background: #222;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        body.light .theme-toggle { background: #ddd; color: #000; }
+        .theme-toggle:hover { transform: scale(1.1); }
+
         .container {
             position: relative;
             z-index: 1;
             max-width: 960px;
             margin: 0 auto;
-            padding: 4rem 1.5rem;
+            padding: 9rem 1rem 4rem;
             text-align: center;
         }
         .header { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
         .logo-wrapper {
-            width: 20vw; max-width: 140px; min-width: 90px; height: auto; aspect-ratio: 1/1;
+            width: 20vw; max-width: 140px; min-width: 90px;
             animation: subtleEntrance 1.6s ease-out;
         }
         .logo {
@@ -40,6 +145,7 @@
             box-shadow: 0 0 25px rgba(255,255,255,0.15), inset 0 0 20px rgba(255,255,255,0.08);
             background: rgba(20,20,20,0.4);
         }
+        body.light .logo { box-shadow: 0 0 25px rgba(0,0,0,0.15); background: rgba(240,240,240,0.6); }
         @keyframes subtleEntrance {
             from { opacity: 0; transform: scale(0.75) translateY(20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -53,6 +159,12 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
+        body.light h1 {
+            background: linear-gradient(90deg, #000000, #333333, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .code-wrapper {
             position: relative;
             background: rgba(20,20,20,0.75);
@@ -64,6 +176,11 @@
             margin: 0 auto;
             max-width: 100%;
         }
+        body.light .code-wrapper {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #ccc;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
         .code-box {
             padding: clamp(1.8rem, 5vw, 2.8rem);
             font-family: 'Consolas', 'Courier New', monospace;
@@ -73,6 +190,8 @@
             word-break: break-all;
             color: #e0e0e0;
         }
+        body.light .code-box { color: #1a1a1a; }
+
         .copy-btn {
             position: absolute;
             top: 1rem; right: 1rem;
@@ -83,8 +202,12 @@
             cursor: pointer; transition: all 0.25s ease;
             font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
+        body.light .copy-btn { background: #eee; border: 1px solid #ccc; color: #555; }
         .copy-btn:hover { background: #333; color: #fff; transform: scale(1.08); }
+        body.light .copy-btn:hover { background: #ddd; color: #000; }
         .copy-btn.copied { background: #2a5c2a; color: white; border-color: #3a7a3a; }
+
+        /* ORIGINAL social buttons from your very first code */
         .social-buttons { margin-top: 3rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
         .social-btn {
             display: inline-flex; align-items: center; gap: 0.75rem;
@@ -101,14 +224,68 @@
         .social-btn.discord:hover { background: linear-gradient(135deg, #4752C4, #5865F2); box-shadow: 0 8px 25px rgba(88,101,242,0.5); }
         .social-btn.youtube { background: linear-gradient(135deg, #FF0000, #CC0000); border-color: #FF0000; }
         .social-btn.youtube:hover { background: linear-gradient(135deg, #CC0000, #FF0000); box-shadow: 0 8px 25px rgba(255,0,0,0.5); }
+
         @media (max-width: 480px) {
-            .container { padding: 3rem 1rem; }
+            .container { padding: 9rem 1rem 3rem; }
             .social-buttons { flex-direction: column; align-items: center; }
             .social-btn { width: 100%; max-width: 300px; justify-content: center; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                top: 0.8rem;
+                left: 0.8rem;
+                right: 0.8rem;
+                height: 64px;
+                padding: 0 1rem;
+            }
+            .nav-logo {
+                font-size: 1.2rem;
+                gap: 8px;
+            }
+            .nav-logo img {
+                width: 36px;
+                height: 36px;
+            }
+            .nav-links {
+                gap: 0.8rem;
+            }
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 0.95rem;
+                min-width: 70px;
+            }
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 8.5rem 0.8rem 3rem;
+            }
         }
     </style>
 </head>
 <body>
+<!-- Navbar -->
+<div class="navbar">
+    <a href="index.html" class="nav-logo">
+        <img src="https://i.postimg.cc/B6TwgCZy/IMG-0336.png" alt="Deadly Scripts">
+        Deadly Scripts
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="faq.html">FAQ</a>
+        <a href="premium.html">Premium</a>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+</div>
+
+<!-- Particle Background -->
 <div class="bg-particles">
     <canvas id="particles"></canvas>
 </div>
@@ -120,6 +297,7 @@
         </div>
         <h1>Deadly Scripts Hub</h1>
     </div>
+
     <div class="code-wrapper">
         <div class="code-box" id="code">
 loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw/refs/heads/main/Deadly_Scripts_Script_Hub"))()
@@ -128,6 +306,8 @@ loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw
             <i class="fas fa-copy"></i>
         </button>
     </div>
+
+    <!-- ORIGINAL social buttons exactly as in your first code -->
     <div class="social-buttons">
         <a href="https://discord.gg/ASykn63YpU" target="_blank" rel="noopener noreferrer" class="social-btn discord">
             <i class="fab fa-discord"></i> Join Discord
@@ -139,7 +319,7 @@ loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw
 </div>
 
 <script>
-// Fewer particles + balanced smear that fades properly
+// Particle Animation
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -152,9 +332,7 @@ window.addEventListener('resize', resize);
 resize();
 
 class Particle {
-    constructor() {
-        this.reset();
-    }
+    constructor() { this.reset(); }
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -168,18 +346,11 @@ class Particle {
         this.age += delta;
         this.x += this.speedX * (delta / 16);
         this.y += this.speedY * (delta / 16);
-
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-
-        if (this.age >= this.life) {
-            this.reset();
-        }
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        if (this.age >= this.life) this.reset();
     }
     draw() {
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = document.body.classList.contains('light') ? '#000000' : '#ffffff';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -187,8 +358,7 @@ class Particle {
 }
 
 function spawnParticles() {
-    // Significantly fewer particles
-    const target = Math.max(20, Math.floor(canvas.width * canvas.height / 50000)); // ~half or less than before
+    const target = Math.max(20, Math.floor(canvas.width * canvas.height / 50000));
     while (particles.length < target) particles.push(new Particle());
 }
 
@@ -197,26 +367,36 @@ function animate(time = 0) {
     if (!lastTime) lastTime = time;
     const delta = time - lastTime;
     lastTime = time;
-
-    // Stronger fade → visible smear but old trails disappear faster
-    ctx.fillStyle = 'rgba(10, 10, 10, 0.28)';
+    ctx.fillStyle = document.body.classList.contains('light') ? 'rgba(240, 240, 240, 0.28)' : 'rgba(10, 10, 10, 0.28)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-        p.update(delta);
-        p.draw();
-    });
-
-    // Spawn new ones much less frequently
+    particles.forEach(p => { p.update(delta); p.draw(); });
     if (Math.random() < 0.04) particles.push(new Particle());
-
     requestAnimationFrame(animate);
 }
-
 spawnParticles();
 animate();
 
-// Copy button
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme === 'light') {
+    document.body.classList.add('light');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    if (document.body.classList.contains('light')) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'light');
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'dark');
+    }
+    particles = [];
+    spawnParticles();
+});
+
+// Copy Button
 const copyBtn = document.getElementById('copyBtn');
 const codeText = document.getElementById('code').textContent.trim();
 copyBtn.addEventListener('click', async () => {
