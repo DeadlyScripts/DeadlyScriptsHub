@@ -6,12 +6,7 @@
     <title>Deadly Scripts Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             min-height: 100vh;
@@ -20,62 +15,37 @@
             position: relative;
             overflow-x: hidden;
         }
-
-        /* Subtle animated background */
         .bg-particles {
             position: fixed;
             inset: 0;
-            z-index: -2;
+            z-index: -1;
             pointer-events: none;
         }
-
+        canvas { display: block; }
         .container {
             position: relative;
             z-index: 1;
-            max-width: 920px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 4rem 1.5rem;
             text-align: center;
         }
-
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 4rem; /* increased spacing since subtitle is removed */
-        }
-
+        .header { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
         .logo-wrapper {
-            width: 120px;
-            height: 120px;
+            width: 20vw; max-width: 140px; min-width: 90px; height: auto; aspect-ratio: 1/1;
             animation: subtleEntrance 1.6s ease-out;
         }
-
         .logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-            box-shadow: 
-                0 0 25px rgba(255,255,255,0.15),
-                inset 0 0 20px rgba(255,255,255,0.08);
+            width: 100%; height: 100%; object-fit: contain; border-radius: 50%;
+            box-shadow: 0 0 25px rgba(255,255,255,0.15), inset 0 0 20px rgba(255,255,255,0.08);
             background: rgba(20,20,20,0.4);
         }
-
         @keyframes subtleEntrance {
-            from {
-                opacity: 0;
-                transform: scale(0.75) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.75) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         h1 {
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 8vw, 4.2rem);
             font-weight: 800;
             letter-spacing: -1px;
             background: linear-gradient(90deg, #ffffff, #d0d0d0, #ffffff);
@@ -83,7 +53,6 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
-
         .code-wrapper {
             position: relative;
             background: rgba(20,20,20,0.75);
@@ -92,56 +61,54 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            margin: 0 auto;
+            max-width: 100%;
         }
-
         .code-box {
-            padding: 2.4rem 2.8rem;
+            padding: clamp(1.8rem, 5vw, 2.8rem);
             font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
             line-height: 1.7;
             white-space: pre-wrap;
             word-break: break-all;
             color: #e0e0e0;
         }
-
         .copy-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 48px;
-            height: 48px;
-            background: #222;
-            border: 1px solid #444;
-            color: #aaa;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
+            top: 1rem; right: 1rem;
+            width: clamp(40px, 10vw, 52px);
+            height: clamp(40px, 10vw, 52px);
+            background: #222; border: 1px solid #444; color: #aaa;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.25s ease;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
-
-        .copy-btn:hover {
-            background: #333;
-            color: #fff;
-            transform: scale(1.08);
+        .copy-btn:hover { background: #333; color: #fff; transform: scale(1.08); }
+        .copy-btn.copied { background: #2a5c2a; color: white; border-color: #3a7a3a; }
+        .social-buttons { margin-top: 3rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .social-btn {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+            font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 600;
+            text-decoration: none; color: #ffffff; border-radius: 10px;
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(40,40,40,0.6); backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); min-width: 180px;
         }
-
-        .copy-btn.copied {
-            background: #2a5c2a;
-            color: white;
-            border-color: #3a7a3a;
-        }
-
-        @media (max-width: 640px) {
-            h1 { font-size: 2.8rem; }
-            .logo-wrapper { width: 100px; height: 100px; }
-            .code-box { font-size: 1.05rem; padding: 2rem; }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.6); background: rgba(60,60,60,0.8); }
+        .social-btn i { font-size: clamp(1.3rem, 3vw, 1.6rem); }
+        .social-btn.discord { background: linear-gradient(135deg, #5865F2, #4752C4); border-color: #5865F2; }
+        .social-btn.discord:hover { background: linear-gradient(135deg, #4752C4, #5865F2); box-shadow: 0 8px 25px rgba(88,101,242,0.5); }
+        .social-btn.youtube { background: linear-gradient(135deg, #FF0000, #CC0000); border-color: #FF0000; }
+        .social-btn.youtube:hover { background: linear-gradient(135deg, #CC0000, #FF0000); box-shadow: 0 8px 25px rgba(255,0,0,0.5); }
+        @media (max-width: 480px) {
+            .container { padding: 3rem 1rem; }
+            .social-buttons { flex-direction: column; align-items: center; }
+            .social-btn { width: 100%; max-width: 300px; justify-content: center; }
         }
     </style>
 </head>
 <body>
-
 <div class="bg-particles">
     <canvas id="particles"></canvas>
 </div>
@@ -153,20 +120,26 @@
         </div>
         <h1>Deadly Scripts Hub</h1>
     </div>
-
     <div class="code-wrapper">
         <div class="code-box" id="code">
 loadstring(game:HttpGet("https://github.com/DeadlyScripts/Deadly-Scripts-Hub/raw/refs/heads/main/Deadly_Scripts_Script_Hub"))()
         </div>
-
         <button class="copy-btn" id="copyBtn">
             <i class="fas fa-copy"></i>
         </button>
     </div>
+    <div class="social-buttons">
+        <a href="https://discord.gg/ASykn63YpU" target="_blank" rel="noopener noreferrer" class="social-btn discord">
+            <i class="fab fa-discord"></i> Join Discord
+        </a>
+        <a href="https://youtube.com/@deadly-scripts?si=Y_-r5tE_UfY4r-i6" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
+            <i class="fab fa-youtube"></i> Subscribe on YouTube
+        </a>
+    </div>
 </div>
 
 <script>
-// Gentle floating particles
+// Fewer particles + balanced smear that fades properly
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -175,30 +148,37 @@ function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
-
 window.addEventListener('resize', resize);
 resize();
 
 class Particle {
     constructor() {
+        this.reset();
+    }
+    reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2.5 + 0.8;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
-        this.opacity = Math.random() * 0.4 + 0.1;
+        this.size = Math.random() * 2.2 + 1;
+        this.speedX = Math.random() * 0.8 - 0.4;
+        this.speedY = Math.random() * 0.8 - 0.4;
+        this.life = 2200 + Math.random() * 2800;
+        this.age = 0;
     }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || 
-            this.y < 0 || this.y > canvas.height) {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
+    update(delta) {
+        this.age += delta;
+        this.x += this.speedX * (delta / 16);
+        this.y += this.speedY * (delta / 16);
+
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+
+        if (this.age >= this.life) {
+            this.reset();
         }
     }
     draw() {
-        ctx.globalAlpha = this.opacity;
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -206,52 +186,55 @@ class Particle {
     }
 }
 
-function initParticles() {
-    particles = [];
-    const count = Math.min(Math.floor(canvas.width * canvas.height / 20000), 120);
-    for(let i = 0; i < count; i++) {
-        particles.push(new Particle());
-    }
+function spawnParticles() {
+    // Significantly fewer particles
+    const target = Math.max(20, Math.floor(canvas.width * canvas.height / 50000)); // ~half or less than before
+    while (particles.length < target) particles.push(new Particle());
 }
 
-function animate() {
-    ctx.fillStyle = 'rgba(10,10,10,0.08)';
+let lastTime = 0;
+function animate(time = 0) {
+    if (!lastTime) lastTime = time;
+    const delta = time - lastTime;
+    lastTime = time;
+
+    // Stronger fade → visible smear but old trails disappear faster
+    ctx.fillStyle = 'rgba(10, 10, 10, 0.28)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
+
     particles.forEach(p => {
-        p.update();
+        p.update(delta);
         p.draw();
     });
-    
+
+    // Spawn new ones much less frequently
+    if (Math.random() < 0.04) particles.push(new Particle());
+
     requestAnimationFrame(animate);
 }
 
-initParticles();
+spawnParticles();
 animate();
 
-// Copy functionality
+// Copy button
 const copyBtn = document.getElementById('copyBtn');
 const codeText = document.getElementById('code').textContent.trim();
-
 copyBtn.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(codeText);
         copyBtn.innerHTML = '<i class="fas fa-check"></i>';
         copyBtn.classList.add('copied');
-        
         setTimeout(() => {
             copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
             copyBtn.classList.remove('copied');
         }, 1600);
     } catch (err) {
-        // fallback
         const ta = document.createElement('textarea');
         ta.value = codeText;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        
         copyBtn.innerHTML = '<i class="fas fa-check"></i>';
         copyBtn.classList.add('copied');
         setTimeout(() => {
